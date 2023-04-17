@@ -1,0 +1,20 @@
+
+name: Thank you for your pull request
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    steps:
+   - name: Post/Update Comment
+      uses: peter-evans/create-or-update-comment@v3
+      id: comment
+      with:
+        issue-number: ${{ github.event.pull_request.number }}
+        comment-id: ${{ steps.find-comment.outputs.comment-id }}
+        edit-mode: replace
+        body: |-
+          test

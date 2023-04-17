@@ -8,20 +8,13 @@ jobs:
   add_comment:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout PR code
-      uses: actions/checkout@v2
-      with:
-        ref: ${{ github.event.pull_request.head.sha }}
-
     - name: Install dependencies
       run: npm install @actions/github
-
     - name: Add comment
       uses: actions/github-script@v4
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          const context = github.context;
           const { owner, repo } = context.repo;
           const { number } = context.payload.pull_request;
           const comment = 'Hello from GitHub Actions!';

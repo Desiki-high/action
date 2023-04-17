@@ -8,9 +8,6 @@ jobs:
   comment:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
       - name: Comment on pull request
         uses: actions/github-script@v4
         with:

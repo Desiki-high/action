@@ -9,7 +9,7 @@ jobs:
   comment:
     runs-on: ubuntu-latest
     steps:
-   - name: Post/Update Comment
+    - name: Post/Update Comment
       uses: peter-evans/create-or-update-comment@v3
       id: comment
       with:

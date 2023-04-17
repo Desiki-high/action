@@ -12,17 +12,29 @@ jobs:
   comment:
     runs-on: ubuntu-latest
     steps:
-      - name: test
-        run: |
-          echo ${{ github.event.pull_request.number }}
-      - name: Create comment
-        uses: peter-evans/create-or-update-comment@v3
+      - name: Find Comment
+        uses: peter-evans/find-comment@v2
+        id: find-comment
         with:
           issue-number: ${{ github.event.pull_request.number }}
-          body: |
-            This is a multi-line test comment
-            - With GitHub **Markdown** :sparkles:
-            - Created by [create-or-update-comment][1]
-
-            [1]: https://github.com/peter-evans/create-or-update-comment
-          reactions: '+1'
+          comment-author: 'github-actions[bot]'
+          body-includes: '<!-- pr-build comment -->'
+      - name: Print Comment info
+        run: |
+          echo "Comment ID: ${{ steps.find-comment.outputs.comment-id }}"
+          echo "Comment Author: ${{ steps.find-comment.outputs.comment-author }}"
+          echo "Comment created at: ${{ steps.find-comment.outputs.comment-created-at }}"
+      - name: Post/Update Comment
+        uses: peter-evans/create-or-update-comment@v3
+        id: comment
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-id: ${{ steps.find-comment.outputs.comment-id }}
+          edit-mode: replace
+          body: |-
+            <!-- pr-build comment -->
+            ![badge]
+            
+            Please wait while we're building the Jar files for this Pull request...
+            
+            [badge]: https://img.shields.io/badge/Building...-0d1117?style=for-the

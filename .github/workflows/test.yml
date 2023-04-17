@@ -1,9 +1,12 @@
-
-name: Thank you for your pull request
+name: test
 
 on:
   pull_request:
     types: [opened]
+
+permissions:
+  issues: write
+  pull-requests: write
 
 jobs:
   comment:
@@ -15,6 +18,5 @@ jobs:
       with:
         issue-number: ${{ github.event.pull_request.number }}
         comment-id: ${{ steps.find-comment.outputs.comment-id }}
-        edit-mode: replace
         body: |-
           test

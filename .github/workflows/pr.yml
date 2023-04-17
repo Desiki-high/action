@@ -1,35 +1,20 @@
-name: Add comment on PR
+name: Thank you for your pull request
 
 on:
   pull_request:
     types: [opened]
 
 jobs:
-  add_comment:
+  comment:
     runs-on: ubuntu-latest
     steps:
-    - name: Install dependencies
-      run: npm install @actions/github
-    - name: Add Comment
-      uses: actions/github-script@v4
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        script: |
-          const comment = 'Hello from GitHub Actions!';
-          const { data: comments } = await github.pulls.listComments({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            pull_number: context.payload.pull_request.number
-          });
-          const existingComment = comments.find(comment => comment.body === comment);
-          if (!existingComment) {
-            await github.pulls.createReviewComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.payload.pull_request.number,
-              body: comment,
-              commit_id: context.payload.pull_request.head.sha,
-              path: 'path/to/file.js',
-              position: 4 // the line number of the code you want to comment on
-            });
-          }
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Comment on pull request
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: Thanks for your contribution!
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

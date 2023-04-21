@@ -12,7 +12,7 @@ jobs:
         with:
           ref: "main"
       - name: reuse
-        uses: .github/workflows/reuse.yml@main
+        uses: Desiki-high/action/.github/workflows/reuse.yml@main
       - name: Test application
         run: |
           echo "::error title={benchmark-result}::warning" && exit 1

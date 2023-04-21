@@ -1,10 +1,5 @@
-on:
-  workflow_call:
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Test
-        run: |
-          echo "Test"
+steps:
+  - name: Step 1
+    run: echo "Hello from Step 1!"
+  - name: Step 2
+    run: echo "Hello from Step 2!"

@@ -24,6 +24,7 @@ jobs:
         echo "## sucess_true" >> benchmark-result/test.md
     - name: Bench
       run: |
+        touch benchmark-result
         date > benchmark-result/test.md
     - name: test
       run: |

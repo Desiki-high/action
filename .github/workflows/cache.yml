@@ -24,7 +24,7 @@ jobs:
         echo "## sucess_true" >> benchmark-result/test.md
     - name: Bench
       run: |
-        date >> benchmark-result/test.md
+        date > benchmark-result/test.md
     - name: test
       run: |
         sudo apt install tree

@@ -17,23 +17,22 @@ jobs:
     - name: Cache False
       if: steps.benchmark-cache.outputs.cache-hit == 'false'
       run: |
-        echo "## test_false" >> test.md
+        echo "## test_false" >> benchmark-result/test.md
     - name: Cache True
       if: steps.benchmark-cache.outputs.cache-hit == 'true'
       run: |
-        echo "## sucess_true" >> test.md
+        echo "## sucess_true" >> benchmark-result/test.md
     - name: Bench
       run: |
-        date >> test.md
+        date >> benchmark-result/test.md
     - name: test
       run: |
         sudo apt install tree
         tree . -L 2
-        cat *.md
+        cat benchmark-result/test.md
     - name: Save Benchmark Result
       id: benchmark-save
       uses: actions/cache/save@v3
       with:
-        path: |
-          test.md
+        path: benchmark-result
         key: benchmark-result

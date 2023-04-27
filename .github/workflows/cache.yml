@@ -14,10 +14,14 @@ jobs:
       with:
         path: benchmark-result
         key: benchmark-result
-    - name: Generate Prime Numbers
-      if: steps.cache-benchmark.outputs.cache-hit != 'true'
+    - name: Cache False
+      if: steps.cache-benchmark.outputs.cache-hit == 'false'
       run: |
         echo "## test" > test.md
+    - name: Cache True
+      if: steps.cache-benchmark.outputs.cache-hit == 'true'
+      run: |
+        echo "## test_2" > test.md
     - name: test
       run: |
         sudo apt install tree

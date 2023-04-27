@@ -1,17 +1,17 @@
-name: Error Test
+# name: Error Test
 
-on: push
+# on: push
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          ref: "main"
-      - uses: Desiki-high/action/.github/workflows/reuse.yml@main
-      - name: Test application
-        run: |
-          echo "::error title={benchmark-result}::warning" && exit 1
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v3
+#         with:
+#           ref: "main"
+#       - uses: Desiki-high/action/.github/workflows/reuse.yml@main
+#       - name: Test application
+#         run: |
+#           echo "::error title={benchmark-result}::warning" && exit 1

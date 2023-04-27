@@ -1,0 +1,33 @@
+name: Caching Test
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Cache benchmark
+      id: benchmark-cache
+      uses: actions/cache@v3
+      with:
+        path: benchmark-result
+        key: benchmark-result
+    - name: Generate Prime Numbers
+      if: steps.cache-benchmark.outputs.cache-hit != 'true'
+      run: |
+        echo "## test" > test.md
+    - name: test
+      run: |
+        sudo apt install tree
+        tree . -L 2
+        cat *
+        cat */*
+    - name: Save Benchmark Result
+      id: benchmark-save
+      uses: actions/cache/save@v3
+      with:
+        path: |
+          test.md
+        key: ${{ steps.benchmark-cache.outputs.cache-primary-key }}

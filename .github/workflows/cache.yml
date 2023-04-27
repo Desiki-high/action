@@ -15,9 +15,13 @@ jobs:
         path: benchmark-result
         key: benchmark-result
     - name: Cache False
-      if: steps.cache-benchmark.outputs.cache-hit != 'true'
+      if: steps.benchmark-cache.outputs.cache-hit == 'false'
       run: |
-        echo "## test" > test.md
+        echo "## test_false" >> test.md
+    - name: Cache True
+      if: steps.benchmark-cache.outputs.cache-hit == 'true'
+      run: |
+        echo "## sucess_true" >> test.md
     - name: test
       run: |
         sudo apt install tree

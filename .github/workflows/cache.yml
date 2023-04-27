@@ -33,4 +33,4 @@ jobs:
       with:
         path: |
           test.md
-        key: ${{ steps.benchmark-cache.outputs.cache-primary-key }}
+        key: benchmark-result

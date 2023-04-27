@@ -22,8 +22,7 @@ jobs:
       run: |
         sudo apt install tree
         tree . -L 2
-        cat *
-        cat */*
+        cat *.md
     - name: Save Benchmark Result
       id: benchmark-save
       uses: actions/cache/save@v3

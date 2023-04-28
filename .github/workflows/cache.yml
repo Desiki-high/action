@@ -8,32 +8,29 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Cache benchmark
-      id: benchmark-cache
+    - name: Restore benchmark result
       uses: actions/cache@v3
+      id: benchmark-cache
       with:
-        path: benchmark-result
+        path: benchmark-result-pre
         key: benchmark-result
-    - name: Cache False
+    - name: Benchmark
       if: steps.benchmark-cache.outputs.cache-hit == 'false'
       run: |
-        echo "## test_false" >> benchmark-result/test.md
-    - name: Cache True
+        date >> benchmark-result-pre/test.md
+        echo "false" >> benchmark-result-pre/test.md
+    - name: Benchmark
       if: steps.benchmark-cache.outputs.cache-hit == 'true'
       run: |
-        echo "## sucess_true" >> benchmark-result/test.md
-    - name: Bench
-      run: |
-        cat benchmark-result/test.md
-        date > benchmark-result/test.md
+        date >> benchmark-result-pre/test.md
+        echo "true" >> benchmark-result-pre/test.md
     - name: test
       run: |
         sudo apt install tree
         tree . -L 2
-        cat benchmark-result/test.md
+        cat benchmark-result-pre/test.md
     - name: Save Benchmark Result
-      id: benchmark-save
       uses: actions/cache/save@v3
       with:
-        path: benchmark-result
+        path: benchmark-result-pre
         key: benchmark-result

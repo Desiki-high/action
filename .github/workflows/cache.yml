@@ -13,7 +13,9 @@ jobs:
       uses: actions/cache/restore@v3
       with:
         path: benchmark-result
-        key: benchmark-result
+        key: ${{ runner.os }}-cache-${{ github.run_id }}
+        restore-keys: |
+          ${{ runner.os }}-cache-
     - name: Benchmark
       run: |
         if [ ! -d "benchmark-result" ]; then
@@ -26,4 +28,6 @@ jobs:
       uses: actions/cache/save@v3
       with:
         path: benchmark-result
-        key: ${{ steps.benchmark-cache-restore.outputs.cache-primary-key }}
+        key: ${{ runner.os }}-cache-${{ github.run_id }}
+
+

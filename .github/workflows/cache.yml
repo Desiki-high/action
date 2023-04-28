@@ -22,7 +22,7 @@ jobs:
         date >> benchmark-result/test.md
         cat benchmark-result/test.md
     - name: Save Benchmark Result
-      uses: actions/cache/save@v3
+      uses: actions/cache/restore@v3
       with:
         path: benchmark-result
         key: benchmark-result

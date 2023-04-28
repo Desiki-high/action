@@ -21,7 +21,7 @@ jobs:
         date >> benchmark-result-pre/test.md
         install -D benchmark-result-pre/test.md benchmark-result/test.md
         cat benchmark-result/test.md
-        sudo apt install tree
+        sudo apt install update && apt install tree
         tree . -L 2
     - name: Save Benchmark Result
       uses: actions/cache/save@v3

@@ -10,14 +10,13 @@ jobs:
     - uses: actions/checkout@v3
     - name: Restore benchmark result
       uses: actions/cache@v3
-      id: benchmark-cache
       with:
         path: benchmark-result-pre
         key: benchmark-result
     - name: Benchmark
       run: |
         mkdir benchmark-result
-        date >> benchmark-result/test.md
+        date > benchmark-result/test.md
         echo "111111111" >> benchmark-result/test.md
     - name: test
       run: |
@@ -25,7 +24,7 @@ jobs:
         tree . -L 2
         cat benchmark-result/test.md
     - name: Save Benchmark Result
-      uses: actions/cache/save@v3
+      uses: actions/cache@v3
       with:
         path: benchmark-result
         key: benchmark-result

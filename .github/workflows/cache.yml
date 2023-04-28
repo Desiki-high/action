@@ -12,7 +12,7 @@ jobs:
       uses: actions/cache/restore@v3
       with:
         path: benchmark-result-pre
-        key: benchmark-result
+        key: benchmark-result-test
     - name: Benchmark
       run: |
         if [ ! -d "benchmark-result-pre" ]; then
@@ -21,10 +21,9 @@ jobs:
         date >> benchmark-result-pre/test.md
         install -D benchmark-result-pre/test.md benchmark-result/test.md
         cat benchmark-result/test.md
-        sudo apt install update && apt install tree
         tree . -L 2
     - name: Save Benchmark Result
       uses: actions/cache/save@v3
       with:
-        path: benchmark-result
+        path: benchmark-result-test
         key: benchmark-result

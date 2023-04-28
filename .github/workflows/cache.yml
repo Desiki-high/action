@@ -11,18 +11,18 @@ jobs:
     - name: Restore benchmark result
       uses: actions/cache/restore@v3
       with:
-        path: benchmark-result
+        path: benchmark-result-pre
         key: benchmark-result
     - name: Benchmark
       run: |
-        mkdir benchmark-result
-        date > benchmark-result/test.md
-        echo "22222222" >> benchmark-result/test.md
-    - name: test
-      run: |
+        if [ ! -d "benchmark-result-pre" ]; then
+          mkdir -p "benchmark-result-pre"
+        fi
+        date >> benchmark-result-pre/test.md
+        install -D benchmark-result-pre/test.md benchmark-result/test.md
+        cat benchmark-result/test.md
         sudo apt install tree
         tree . -L 2
-        cat benchmark-result/test.md
     - name: Save Benchmark Result
       uses: actions/cache/save@v3
       with:

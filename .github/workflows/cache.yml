@@ -9,9 +9,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Restore benchmark result
-      uses: actions/cache@v3
+      uses: actions/cache/restore@v3
       with:
-        path: benchmark-result-pre
+        path: benchmark-result
         key: benchmark-result
     - name: Benchmark
       run: |
@@ -23,9 +23,8 @@ jobs:
         sudo apt install tree
         tree . -L 2
         cat benchmark-result/test.md
-        cat benchmark-result-pre/test.md
     - name: Save Benchmark Result
-      uses: actions/cache@v3
+      uses: actions/cache/save@v3
       with:
         path: benchmark-result
         key: benchmark-result

@@ -17,12 +17,13 @@ jobs:
       run: |
         mkdir benchmark-result
         date > benchmark-result/test.md
-        echo "111111111" >> benchmark-result/test.md
+        echo "22222222" >> benchmark-result/test.md
     - name: test
       run: |
         sudo apt install tree
         tree . -L 2
         cat benchmark-result/test.md
+        cat benchmark-result-pre/test.md
     - name: Save Benchmark Result
       uses: actions/cache@v3
       with:

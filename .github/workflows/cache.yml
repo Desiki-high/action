@@ -15,22 +15,17 @@ jobs:
         path: benchmark-result-pre
         key: benchmark-result
     - name: Benchmark
-      if: steps.benchmark-cache.outputs.cache-hit == 'false'
       run: |
-        date >> benchmark-result-pre/test.md
-        echo "false" >> benchmark-result-pre/test.md
-    - name: Benchmark
-      if: steps.benchmark-cache.outputs.cache-hit == 'true'
-      run: |
-        date >> benchmark-result-pre/test.md
-        echo "true" >> benchmark-result-pre/test.md
+        mkdir benchmark-result
+        date >> benchmark-result/test.md
+        echo "111111111" >> benchmark-result/test.md
     - name: test
       run: |
         sudo apt install tree
         tree . -L 2
-        cat benchmark-result-pre/test.md
+        cat benchmark-result/test.md
     - name: Save Benchmark Result
       uses: actions/cache/save@v3
       with:
-        path: benchmark-result-pre
+        path: benchmark-result
         key: benchmark-result

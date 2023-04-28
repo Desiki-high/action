@@ -13,7 +13,6 @@ jobs:
       with:
         path: benchmark-result
         key: benchmark-result
-        restore-keys: test
     - name: Benchmark
       run: |
         if [ ! -d "benchmark-result" ]; then
@@ -27,4 +26,3 @@ jobs:
       with:
         path: benchmark-result
         key: benchmark-result
-        restore-keys: test

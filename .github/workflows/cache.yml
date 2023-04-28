@@ -18,6 +18,7 @@ jobs:
         if [ ! -d "benchmark-result-pre" ]; then
           mkdir -p "benchmark-result-pre"
         fi
+        tree . -L 2
         date >> benchmark-result-pre/test.md
         install -D benchmark-result-pre/test.md benchmark-result/test.md
         cat benchmark-result/test.md
@@ -25,5 +26,5 @@ jobs:
     - name: Save Benchmark Result
       uses: actions/cache/save@v3
       with:
-        path: benchmark-result-test
-        key: benchmark-result
+        path: benchmark-result
+        key: benchmark-result-test

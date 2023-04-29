@@ -9,4 +9,4 @@ jobs:
       - name: test
         id: result
         run: |
-          echo "Action started at ${GITHUB_ACTION_STARTED_AT}"
+          echo "Action started at ${{ github.event.created_at }}"

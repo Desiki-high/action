@@ -1,6 +1,6 @@
 name: PR Comment
 
-on: pull_request_target
+on: push
 
 jobs:
   welcome:
@@ -9,35 +9,4 @@ jobs:
       - name: test
         id: result
         run: |
-          date > test.md
-      - uses: actions/github-script@v6
-        with:
-          script: |
-            const fs = require('fs');
-            const markdownFilePath = 'test.md';
-            const markdownContent = fs.readFileSync(markdownFilePath, 'utf8');
-
-            const { data: comments } = await github.rest.issues.listComments({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-            });
-
-            const existingComment = comments.find((comment) => comment.user.login === 'github-actions[bot]');
-
-            if (existingComment) {
-              await github.rest.issues.updateComment({
-                comment_id: existingComment.id,
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: markdownContent,
-              });
-            } else {
-              await github.rest.issues.createComment({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: markdownContent,
-              });
-            }
+          echo "Action started at ${GITHUB_ACTION_STARTED_AT}"

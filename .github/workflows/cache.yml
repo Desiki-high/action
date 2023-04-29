@@ -14,8 +14,6 @@ jobs:
       with:
         path: benchmark-result
         key: ${{ runner.os }}-cache-${{ github.run_id }}
-        restore-keys: |
-          ${{ runner.os }}-cache-
     - name: Benchmark
       run: |
         if [ ! -d "benchmark-result" ]; then

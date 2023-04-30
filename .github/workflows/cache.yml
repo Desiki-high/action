@@ -8,12 +8,19 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: Get Date
+      id: get-date
+      run: |
+        echo "date=$(date  +%s)" >> $GITHUB_OUTPUT
+      shell: bash
     - name: Restore benchmark result
       id: benchmark-cache-restore
       uses: actions/cache/restore@v3
       with:
         path: benchmark-result
-        key: ${{ runner.os }}-cache-${{ github.run_id }}
+        key: ${{ runner.os }}-cache-${{ steps.get-date.outputs.date }}
+        restore-keys: |
+          ${{ runner.os }}-cache-
     - name: Benchmark
       run: |
         if [ ! -d "benchmark-result" ]; then
@@ -26,6 +33,4 @@ jobs:
       uses: actions/cache/save@v3
       with:
         path: benchmark-result
-        key: ${{ runner.os }}-cache-${{ github.run_id }}
-
-
+        key: ${{ runner.os }}-cache-${{ steps.get-date.outputs.date }}
